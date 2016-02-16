@@ -6,7 +6,7 @@ namespace KnockKnock.ServiceModel
     [Route("/api/v1/knocks/", "POST, PUT")]
     public class KnockPost : IReturn<long>
     {
-        [ApiMember]
+        [ApiMember(DataType = "KnockDto", ParameterType = "body", Description = "The Knock to save.", Name="Knock")]
         public Types.KnockDto Knock { get; set; }
     }
 }

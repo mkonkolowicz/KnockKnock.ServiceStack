@@ -13,7 +13,14 @@ namespace KnockKnockSS.ServiceInterface
 {
     public class KnockKnockMongo : Service
     {
-        public IMongoCollection<T> Database<T>(string db = "KnockKnockMongoLab", string collection = "KnockKnock")
+        public KnockKnockMongo()
+        {
+            var mongo = Database<PotatoKnock>();
+            mongo.Indexes.CreateOne(Builders<PotatoKnock>.IndexKeys.Geo2DSphere(k => k.Location));
+            var mongoFeed = Database<PotatoFeed>();
+            mongoFeed.Indexes.CreateOne(Builders<PotatoFeed>.IndexKeys.Geo2DSphere(f => f.Location));
+        }
+        public IMongoCollection<T> Database<T>(string db = "test", string collection = "KnockKnock")
         {
             var conn = ConfigurationManager.ConnectionStrings["Mongo"].ConnectionString;
             var mongo = string.IsNullOrEmpty(conn)
