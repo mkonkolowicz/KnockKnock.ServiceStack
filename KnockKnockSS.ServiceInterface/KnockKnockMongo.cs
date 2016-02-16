@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using KnockKnock.ServiceModel;
@@ -15,11 +14,13 @@ namespace KnockKnockSS.ServiceInterface
     {
         public KnockKnockMongo()
         {
-            var mongo = Database<PotatoKnock>();
-            mongo.Indexes.CreateOne(Builders<PotatoKnock>.IndexKeys.Geo2DSphere(k => k.Location));
-            var mongoFeed = Database<PotatoFeed>();
-            mongoFeed.Indexes.CreateOne(Builders<PotatoFeed>.IndexKeys.Geo2DSphere(f => f.Location));
+            //Commenting this out to see if this be the problem...
+            //var mongo = Database<PotatoKnock>();
+            //mongo.Indexes.CreateOne(Builders<PotatoKnock>.IndexKeys.Geo2DSphere(k => k.Location));
+            //var mongoFeed = Database<PotatoFeed>();
+            //mongoFeed.Indexes.CreateOne(Builders<PotatoFeed>.IndexKeys.Geo2DSphere(f => f.Location));
         }
+
         public IMongoCollection<T> Database<T>(string db = "test", string collection = "KnockKnock")
         {
             var conn = ConfigurationManager.ConnectionStrings["Mongo"].ConnectionString;
@@ -31,22 +32,28 @@ namespace KnockKnockSS.ServiceInterface
 
         private IEnumerable<T> ByLocation<T>(double longitude, double latitude, double radius) where T : IHasLocation
         {
-            return Database<T>()
-                .Find(Builders<T>.Filter.Near(k => k.Location,
-                    new GeoJsonPoint<GeoJson2DGeographicCoordinates>(new GeoJson2DGeographicCoordinates(longitude,
-                        latitude)), radius)).ToEnumerable();
+            return
+                Database<T>()
+                    .Find(Builders<T>.Filter.Near(k => k.Location, LocationHelper.ToGeoJsonPoint(longitude, latitude),
+                        radius))
+                    .ToEnumerable();
         }
 
         public KnockDto Get(KnockGetV1 request)
         {
-            return Database<PotatoKnock>().Find(Builders<PotatoKnock>.Filter.Eq(k => k._id, request.Id)).FirstOrDefault()?.ToDto();
+            return
+                Database<PotatoKnock>()
+                    .Find(Builders<PotatoKnock>.Filter.Eq(k => k._id, request.Id))
+                    .FirstOrDefault()?
+                    .ToDto();
         }
 
         public List<KnockDto> Get(KnocksByLocation request)
         {
-            return ByLocation<PotatoKnock>(request.Longitude, request.Latitude, request.Radius)
-                .Select(p => p.ToDto())
-                .ToList();
+            return
+                ByLocation<PotatoKnock>(request.Longitude, request.Latitude, request.Radius)
+                    .Select(p => p.ToDto())
+                    .ToList();
         }
 
 
@@ -63,15 +70,20 @@ namespace KnockKnockSS.ServiceInterface
         public void Any(KnockPost request)
         {
             Database<PotatoKnock>()
-                .FindOneAndReplace(Builders<PotatoKnock>.Filter.Eq(k => k._id, request.Knock.Id), new PotatoKnock(request.Knock),
+                .FindOneAndReplace(Builders<PotatoKnock>.Filter.Eq(k => k._id, request.Knock.Id),
+                    new PotatoKnock(request.Knock),
                     new FindOneAndReplaceOptions<PotatoKnock, PotatoKnock> {IsUpsert = true});
         }
 
         public string Any(FeedsPersist request)
         {
-            throw new NotImplementedException();
-         //   Database<PotatoFeed>().FindOneAndUpdate(Builders<PotatoFeed>.Filter.Eq(f => f.FeedId, request.Feed.FeedId))
-
+            Database<PotatoFeed>()
+                .FindOneAndUpdate(Builders<PotatoFeed>.Filter.Eq(f => f.FeedId, request.Feed.FeedId),
+                    Builders<PotatoFeed>.Update.Set(f => f.Location, request.Feed.Location.ToGeoJsonPoint())
+                        .Set(f => f.Name, request.Feed.Name)
+                        .SetOnInsert(f => f.FeedId, request.Feed.FeedId),
+                    new FindOneAndUpdateOptions<PotatoFeed> {IsUpsert = true});
+            return request.Feed.Name;
         }
 
         public List<FeedDto> Get(FeedsById request)
@@ -93,6 +105,7 @@ namespace KnockKnockSS.ServiceInterface
                     .Select(f => f.ToDto())
                     .ToList();
         }
+
         public List<FeedDto> Get(FeedsByLocation request)
         {
             return
@@ -107,7 +120,22 @@ namespace KnockKnockSS.ServiceInterface
         GeoJsonPoint<GeoJson2DGeographicCoordinates> Location { get; set; }
     }
 
-    
+
+    internal static class LocationHelper
+    {
+        public static GeoJsonPoint<GeoJson2DGeographicCoordinates> ToGeoJsonPoint(double longitude, double latitude)
+        {
+            return new LocationDto {Latitude = latitude, Longitude = longitude}.ToGeoJsonPoint();
+        }
+
+        public static GeoJsonPoint<GeoJson2DGeographicCoordinates> ToGeoJsonPoint(this LocationDto loc)
+        {
+            return
+                new GeoJsonPoint<GeoJson2DGeographicCoordinates>(
+                    new GeoJson2DGeographicCoordinates(loc?.Longitude ?? 0.0, loc?.Latitude ?? 0.0));
+        }
+    }
+
     public class PotatoFeed : IHasLocation
     {
         [BsonId]
@@ -132,11 +160,12 @@ namespace KnockKnockSS.ServiceInterface
             return new FeedDto()
             {
                 FeedId = FeedId,
-                Location = new LocationDto
-                {
-                    Latitude = this.Location.Coordinates.Latitude,
-                    Longitude = this.Location.Coordinates.Longitude
-                },
+                Location =
+                    new LocationDto
+                    {
+                        Latitude = this.Location.Coordinates.Latitude,
+                        Longitude = this.Location.Coordinates.Longitude
+                    },
                 Name = Name
             };
         }
@@ -163,9 +192,8 @@ namespace KnockKnockSS.ServiceInterface
             FeedId = other.FeedId;
             Content = other.Content;
             Message = other.Message;
-            Location =
-                new GeoJsonPoint<GeoJson2DGeographicCoordinates>(
-                    new GeoJson2DGeographicCoordinates(other.Location?.Longitude ?? 0.0, other.Location?.Latitude ?? 0.0));
+            Location = other.Location.ToGeoJsonPoint();
+
         }
 
         public KnockDto ToDto()
