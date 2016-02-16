@@ -13,7 +13,7 @@ namespace KnockKnockSS.ServiceInterface
 {
     public class KnockKnockMongo : Service
     {
-        public IMongoCollection<T> Database<T>(string db = "test", string collection = "KnockKnock")
+        public IMongoCollection<T> Database<T>(string db = "KnockKnockMongoLab", string collection = "KnockKnock")
         {
             var conn = ConfigurationManager.ConnectionStrings["Mongo"].ConnectionString;
             var mongo = string.IsNullOrEmpty(conn)
