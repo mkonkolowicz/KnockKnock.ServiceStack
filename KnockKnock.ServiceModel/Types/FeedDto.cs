@@ -1,11 +1,10 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
 
 namespace KnockKnock.ServiceModel.Types
 {
-    public class FeedDto
+    public class FeedDto : IHasId
     {
-        [BsonId]
-        public string FeedId { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public LocationDto Location { get; set; }
     }

@@ -136,16 +136,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
-    <Content Include="apiapp.json" />
+    <None Include="Properties\PublishProfiles\KnockKnock.ServiceStack%28Default-Storage-EastUS%29.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI.pubxml" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <None Include="Properties\PublishProfiles\FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\KnockKnockAPI - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -173,9 +174,7 @@
     <Content Include="documentation\lib\underscore-min.js" />
     <Content Include="documentation\swagger-ui.js" />
     <Content Include="documentation\swagger-ui.min.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
