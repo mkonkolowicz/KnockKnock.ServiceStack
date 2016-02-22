@@ -23,19 +23,19 @@ namespace KnockKnock.ServiceStackTests
             //db.DeleteMany(Builders<PotatoKnock>.Filter.Empty);
             
             var knock = new KnockDto {
-                FeedId = "SweetPotato",
-                Id = new Random().Next(0, 100000),
+                FeedId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Location = new LocationDto
                 {
-                    Latitude = 46,
-                    Longitude = 61
+                    Latitude = 45,
+                    Longitude = 60
                 },
-                Message = "Turn me into a sweet potato fry?"
+                Message = "Turn me into a french fry?"
             };
             using (var svc = new JsonServiceClient("http://localhost:40300/"))
             {
                 var knockstr = knock.SerializeToString();
-                svc.Post(new KnockPost() { Knock = knock });
+                svc.Post(new KnockPost { Knock = knock });
             }
             //svc.Any(new KnockPost {Knock = knock});
 
