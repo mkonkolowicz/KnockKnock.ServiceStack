@@ -15,13 +15,13 @@ namespace KnockKnockSS.ServiceInterface
         public KnockKnockMongo()
         {
             //Commenting this out to see if this be the problem...
-            //var mongo = Database<PotatoKnock>();
-            //mongo.Indexes.CreateOne(Builders<PotatoKnock>.IndexKeys.Geo2DSphere(k => k.Location));
-            //var mongoFeed = Database<PotatoFeed>();
-            //mongoFeed.Indexes.CreateOne(Builders<PotatoFeed>.IndexKeys.Geo2DSphere(f => f.Location));
+            var mongo = Database<PotatoKnock>();
+            mongo.Indexes.CreateOne(Builders<PotatoKnock>.IndexKeys.Geo2DSphere(k => k.Location));
+            var mongoFeed = Database<PotatoFeed>();
+            mongoFeed.Indexes.CreateOne(Builders<PotatoFeed>.IndexKeys.Geo2DSphere(f => f.Location));
         }
 
-        public IMongoCollection<T> Database<T>(string db = "test", string collection = "KnockKnock")
+        public IMongoCollection<T> Database<T>(string db = "KnockKnockMongoLab", string collection = "KnockKnock")
         {
             var conn = ConfigurationManager.ConnectionStrings["Mongo"].ConnectionString;
             var mongo = string.IsNullOrEmpty(conn)

@@ -23,14 +23,14 @@ namespace KnockKnock.ServiceStackTests
             //db.DeleteMany(Builders<PotatoKnock>.Filter.Empty);
             
             var knock = new KnockDto {
-                FeedId = "potato",
+                FeedId = "SweetPotato",
                 Id = new Random().Next(0, 100000),
                 Location = new LocationDto
                 {
-                    Latitude = 45,
-                    Longitude = 60
+                    Latitude = 46,
+                    Longitude = 61
                 },
-                Message = "Turn me into a french fry?"
+                Message = "Turn me into a sweet potato fry?"
             };
             using (var svc = new JsonServiceClient("http://localhost:40300/"))
             {

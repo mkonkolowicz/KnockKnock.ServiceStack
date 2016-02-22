@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
 using ServiceStack.ServiceHost;
 
 namespace KnockKnock.ServiceModel.Types
@@ -18,6 +19,7 @@ namespace KnockKnock.ServiceModel.Types
         public string Message { get; set; }
         [ApiMember (DataType = "LocationDto")]
         public LocationDto Location { get; set; }
+        [BsonId]
         [ApiMember(DataType = "long")]
         public long Id { get; set; }
     }

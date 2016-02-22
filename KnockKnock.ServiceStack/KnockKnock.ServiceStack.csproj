@@ -144,7 +144,8 @@
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <None Include="Properties\PublishProfiles\KnockKnockServiceStack - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockAPI - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\KnockKnockAPI - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -172,7 +173,9 @@
     <Content Include="documentation\lib\underscore-min.js" />
     <Content Include="documentation\swagger-ui.js" />
     <Content Include="documentation\swagger-ui.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
