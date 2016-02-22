@@ -89,7 +89,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IHasLocation.cs" />
     <Compile Include="KnockKnockMongo.cs" />
+    <Compile Include="LocationHelper.cs" />
+    <Compile Include="PotatoFeed.cs" />
+    <Compile Include="PotatoKnock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

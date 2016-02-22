@@ -64,6 +64,7 @@
     <Compile Include="KnockGetV1.cs" />
     <Compile Include="KnocksByFeedId.cs" />
     <Compile Include="Types\FeedDto.cs" />
+    <Compile Include="Types\IHasId.cs" />
     <Compile Include="Types\KnockDto.cs" />
     <Compile Include="KnockPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

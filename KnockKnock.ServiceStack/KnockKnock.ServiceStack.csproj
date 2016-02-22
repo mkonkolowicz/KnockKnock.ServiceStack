@@ -136,9 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Properties\PublishProfiles\KnockKnock.ServiceStack%28Default-Storage-EastUS%29.pubxml" />
     <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\KnockKnockServiceStackAPI - FTP %283%29.pubxml" />
