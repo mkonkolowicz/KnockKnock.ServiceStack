@@ -156,24 +156,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="documentation\css\hightlight.default.css" />
-    <Content Include="documentation\css\screen.css" />
-    <Content Include="documentation\images\logo_small.png" />
-    <Content Include="documentation\images\pet_store_api.png" />
-    <Content Include="documentation\images\throbber.gif" />
-    <Content Include="documentation\images\wordnik_api.png" />
-    <Content Include="documentation\index.html" />
-    <Content Include="documentation\lib\backbone-min.js" />
-    <Content Include="documentation\lib\handlebars-1.0.rc.1.js" />
-    <Content Include="documentation\lib\highlight.7.3.pack.js" />
-    <Content Include="documentation\lib\jquery-1.8.0.min.js" />
-    <Content Include="documentation\lib\jquery.ba-bbq.min.js" />
-    <Content Include="documentation\lib\jquery.slideto.min.js" />
-    <Content Include="documentation\lib\jquery.wiggle.min.js" />
-    <Content Include="documentation\lib\swagger.js" />
-    <Content Include="documentation\lib\underscore-min.js" />
-    <Content Include="documentation\swagger-ui.js" />
-    <Content Include="documentation\swagger-ui.min.js" />
+    <Content Include="css\hightlight.default.css" />
+    <Content Include="css\screen.css" />
+    <Content Include="images\logo_small.png" />
+    <Content Include="images\pet_store_api.png" />
+    <Content Include="images\throbber.gif" />
+    <Content Include="images\wordnik_api.png" />
+    <Content Include="index.html" />
+    <Content Include="lib\backbone-min.js" />
+    <Content Include="lib\handlebars-1.0.rc.1.js" />
+    <Content Include="lib\highlight.7.3.pack.js" />
+    <Content Include="lib\jquery-1.8.0.min.js" />
+    <Content Include="lib\jquery.ba-bbq.min.js" />
+    <Content Include="lib\jquery.slideto.min.js" />
+    <Content Include="lib\jquery.wiggle.min.js" />
+    <Content Include="lib\swagger.js" />
+    <Content Include="lib\underscore-min.js" />
+    <Content Include="swagger-ui.js" />
+    <Content Include="swagger-ui.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
